@@ -172,6 +172,7 @@ Deal.belongsTo(Worker)
 Position.hasMany(Worker)
 Worker.belongsTo(Position)
 
+
 CrmRole.hasMany(Worker)
 Worker.belongsTo(CrmRole)
 
