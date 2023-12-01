@@ -7,16 +7,35 @@ const {DataTypes} = require('sequelize')
 const Deal = sequelize.define('deal', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, allowNull: false},
-    creating_date: {type: DataTypes.DATE, allowNull: false},
-    quantity_days: {type: DataTypes.INTEGER, allowNull: false},
+    creatingDate: {type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW},
+    term: {type: DataTypes.INTEGER, allowNull: true},
     budget: {type: DataTypes.INTEGER, allowNull: true},
-})
+}
+// ,{
+//     indexes: [
+//         {
+//             fields: ['name']
+//         },
+//         {
+//             fields: ['creatingDate']
+//         }
+//     ]
+// }
+)
 
 //Клиент - организация
 const Client = sequelize.define('client', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type: DataTypes.STRING(100), unique: true, allowNull: false}
-})
+    name: {type: DataTypes.STRING(100), allowNull: false}
+}
+// ,{
+//     indexes: [
+//         {
+//             fields: ['name']
+//         },
+//     ]
+// }
+)
 
 //Форма клиента - бриф на заказ сайта
 const ClientForm = sequelize.define('client_form', {
@@ -60,7 +79,7 @@ const TimeType = sequelize.define('time_type', {
 //Статус сделки: в процессе, завершена
 const DealStatus = sequelize.define('deal_status', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type: DataTypes.STRING(10), allowNull: false},
+    name: {type: DataTypes.STRING(16), allowNull: false},
 })
 
 //Список товаров, представляемых студией (цифровых - по типу подписки на сервисы)
@@ -73,17 +92,32 @@ const Product = sequelize.define('product', {
 //Список товаров в сделке
 const ProductDeal = sequelize.define('product_deal', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    quantity: {type: DataTypes.INTEGER, allowNull: false, defaultValue: 1},
-    comment: {type: DataTypes.STRING(100), allowNull: true},
+    amount: {type: DataTypes.INTEGER, allowNull: false, defaultValue: 1},
+    comment: {type: DataTypes.STRING(100)},
     total: {type: DataTypes.INTEGER, allowNull: false}
 })
 
-//Услуга - почасовая оплата работника. Будет список работников, участвующих в работе на проектом сделки
+//Услуга - почасовая оплата работника. Будет список должностей, участвующих в работе на проектом сделки
 const Service = sequelize.define('service', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    quantity: {type: DataTypes.INTEGER, allowNull: false, defaultValue: 1},
-    comment: {type: DataTypes.STRING(100), allowNull: true},
+    start_period: {type: DataTypes.INTEGER, allowNull: false},
+    end_period: {type: DataTypes.INTEGER, allowNull: false},
+    amount: {type: DataTypes.INTEGER, allowNull: false, defaultValue: 1},
     total: {type: DataTypes.INTEGER, allowNull: false}
+})
+
+//Список товаров, представляемых студией (цифровых - по типу подписки на сервисы)
+const DealDocument= sequelize.define('deal_document', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    name: {type: DataTypes.STRING, allowNull: false},
+    file: {type: DataTypes.STRING, allowNull: false}
+})
+
+//Список товаров, представляемых студией (цифровых - по типу подписки на сервисы)
+const DealBill= sequelize.define('deal_bill', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    name: {type: DataTypes.STRING, allowNull: false},
+    file: {type: DataTypes.STRING, allowNull: false}
 })
 //-----------------------------DEVELOPMENT BLOCK--------------------------------//
 
@@ -114,10 +148,10 @@ const Project = sequelize.define('project', {
     end_date: {type: DataTypes.DATE, allowNull: true}
 })
 
-const CrmRole = sequelize.define('crm_role', {
-    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    role: {type: DataTypes.STRING(20), allowNull: false},
-})
+// const CrmRole = sequelize.define('crm_role', {
+//     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+//     role: {type: DataTypes.STRING(20), allowNull: false},
+// })
 
 const WorkerStatus = sequelize.define('worker_status', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -148,8 +182,8 @@ ClientPhone.belongsTo(ClientContact)
 ClientForm.hasOne(Deal)
 Deal.belongsTo(ClientForm)
 
-ClientForm.hasOne(ClientContact)
-ClientContact.belongsTo(ClientForm)
+Client.hasMany(ClientForm)
+ClientForm.belongsTo(Client)
 
 Deal.hasMany(TaskSale)
 TaskSale.belongsTo(Deal)
@@ -166,15 +200,18 @@ Deal.belongsToMany(Product, {through: ProductDeal})
 Deal.belongsToMany(Position, {through: Service})
 Position.belongsToMany(Deal,  {through: Service})
 
-Worker.hasMany(Deal)
-Deal.belongsTo(Worker)
+Deal.hasMany(DealDocument)
+DealDocument.belongsTo(Deal)
+
+Deal.hasMany(DealBill)
+DealBill.belongsTo(Deal)
 
 Position.hasMany(Worker)
 Worker.belongsTo(Position)
 
 
-CrmRole.hasMany(Worker)
-Worker.belongsTo(CrmRole)
+// CrmRole.hasMany(Worker)
+// Worker.belongsTo(CrmRole)
 
 WorkerStatus.hasMany(Worker)
 Worker.belongsTo(WorkerStatus)
@@ -182,7 +219,8 @@ Worker.belongsTo(WorkerStatus)
 Worker.belongsToMany(Project, {through: ProjectWorker})
 Project.belongsToMany(Worker, {through: ProjectWorker})
 
-
+Deal.hasOne(Project)
+Project.belongsTo(Deal)
 
 
 module.exports = {
@@ -202,6 +240,8 @@ module.exports = {
     Worker,
     ProjectWorker,
     Project,
-    CrmRole,
-    WorkerStatus
+//    CrmRole,
+    WorkerStatus,
+    DealDocument,
+    DealBill
 }

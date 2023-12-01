@@ -1,7 +1,7 @@
 const Router = require('express')
 const router = new Router()
+const dealController = require('../controlers/dealController')
 
-router.post('/')
-router.get('/')
+router.post('/get', dealController.get)
 
 module.exports = router

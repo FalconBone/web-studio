@@ -1,0 +1,14 @@
+.container {
+    height: 100px;
+}
+
+.image {
+    height: 60px;
+    width: 60px;
+    background-color: brown;
+    margin: 0 auto;
+}
+
+.text {
+    text-align: center;
+}

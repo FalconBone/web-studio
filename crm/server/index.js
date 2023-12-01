@@ -5,12 +5,17 @@ const models = require('./models/models')
 const cors = require('cors')
 const router = require('./routes/index')
 const errorHandler = require('./middleware/ErrorHandlingMiddleware')
+const fileUpload = require('express-fileupload')
+const path = require('path')
+const dataGenerator = require('./data-generator')
 
 const PORT = process.env.PORT
 
 const app = express()
 app.use(cors())
 app.use(express.json())
+app.use(express.static(path.resolve(__dirname, 'static')))
+app.use(fileUpload({}))
 app.use('/api', router)
 
 //Последний middleware
@@ -19,10 +24,11 @@ app.use(errorHandler)
 const start = async () => {
     try {
         await sequelize.authenticate()
-        await sequelize.sync({force: true})
+        await sequelize.sync()
         app.listen(PORT, () => console.log(`Server start in port ${PORT}`))
+        //dataGenerator.generateTestData(50)
     } catch(e){
-        console.log('ОШИБКА!!\n\n');
+        console.log('\n\nОШИБКА!!\n\n');
         console.log(e);
     }
 }
