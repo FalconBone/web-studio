@@ -6,7 +6,6 @@ import DealListElement from './DealListElement';
 function DealListContent() {
 
     const deals = useSelector(state => state.deals.deals)
-    console.log(deals);
 
     return (
         <div className={classes.content}>
@@ -37,7 +36,7 @@ function DealListContent() {
                     </tr>
                 </thead>
                 <tbody>
-                    {deals ? deals.map(deal => <DealListElement deal={deal} />) : undefined}
+                    {deals ? deals.map(deal => <DealListElement deal={deal} key={deal.id}/>) : undefined}
                 </tbody>
             </table>
         </div>

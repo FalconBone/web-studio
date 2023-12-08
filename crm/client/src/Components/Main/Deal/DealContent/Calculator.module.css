@@ -1,0 +1,26 @@
+.calculcator {
+
+}
+
+.header {
+    font-size: 34px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #F8BA32;
+    margin-bottom: 30px;
+}
+
+.settings {
+    background-color: #F7F7F7;
+    padding: 20px;
+}
+
+.settings input {
+    width: 40px;
+    height: 30px;
+    margin-right: 16px;
+}
+
+.settings select {
+    width: 200px;
+    height: 35px;
+}

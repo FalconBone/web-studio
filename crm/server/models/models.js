@@ -119,6 +119,21 @@ const DealBill= sequelize.define('deal_bill', {
     name: {type: DataTypes.STRING, allowNull: false},
     file: {type: DataTypes.STRING, allowNull: false}
 })
+
+const User = sequelize.define('user', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    full_name: {type: DataTypes.STRING, allowNull: false},
+    login: {type: DataTypes.STRING, allowNull: false},
+    password: {type: DataTypes.STRING, allowNull: false}
+})
+
+const Application = sequelize.define('application', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},  
+    full_name: {type: DataTypes.STRING(100), allowNull: false},
+    phone: {type: DataTypes.STRING(20), allowNull: false},
+    email: {type: DataTypes.STRING, allowNull: false},
+    text: {type: DataTypes.TEXT, allowNull: false}
+})
 //-----------------------------DEVELOPMENT BLOCK--------------------------------//
 
 //Список должностей сотрудников
@@ -209,7 +224,8 @@ DealBill.belongsTo(Deal)
 Position.hasMany(Worker)
 Worker.belongsTo(Position)
 
-
+User.hasMany(Deal)
+Deal.belongsTo(User)
 // CrmRole.hasMany(Worker)
 // Worker.belongsTo(CrmRole)
 
@@ -240,8 +256,10 @@ module.exports = {
     Worker,
     ProjectWorker,
     Project,
+    Application,
 //    CrmRole,
     WorkerStatus,
     DealDocument,
-    DealBill
+    DealBill,
+    User
 }

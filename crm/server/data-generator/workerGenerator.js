@@ -23,6 +23,7 @@ const workerGenerator = async (amount) => {
             positionId: (i % countPost) + 1,
             workerStatusId: random.randomize(1,3)
         }
+        console.log(worker);
 
         await Worker.create(worker)
     }

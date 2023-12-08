@@ -17,26 +17,35 @@ class DealController {
         //id, name, client, budjet, manager, date
         const sort = req.body.sort
 
+        console.log(req.body.settings);
         //превращаем настройки в объект where
         const whereSettings = {}
 
         const startTimer = new Date()
         //name
-        whereSettings['name'] = {
-            [Op.substring]: settings['name']
+        if (settings['name']) {
+            whereSettings['name'] = {
+                [Op.substring]: settings['name']
+            }
         }
+
         console.log('\n');
         //clientId
-        const clients = await Client.findAll({
-            logging: console.log,
-            attributes: ['id'],
-            where: {
-                name: {
-                    [Op.substring]: settings['clientName']
-                }
 
-            }
-        })
+        let clients
+        if (settings['clientName']) {
+            clients = await Client.findAll({
+                logging: console.log,
+                attributes: ['id'],
+                where: {
+                    name: {
+                        [Op.substring]: settings['clientName']
+                    }
+    
+                }
+            })
+        
+        
         const clientsId = []
 
         clients.forEach(element => {
@@ -46,17 +55,23 @@ class DealController {
         whereSettings['clientId'] = {
             [Op.or]: clientsId
         }
+    }
 
-
-        //dealStatusId
+    if (settings['statuses']) {
         whereSettings['dealStatusId'] = {
             [Op.or]: settings['statuses']
         }
+    }
+        //dealStatusId
+        
 
         //creatingDate
-        whereSettings['creatingDate'] = {
-            [Op.between]: [settings['firstDate'], settings['secondDate']]
+        if (settings['secondDate'] && settings['firstDate']) {
+            whereSettings['creatingDate'] = {
+                [Op.between]: [settings['firstDate'], settings['secondDate']]
+            }
         }
+        
 
 
         /*
@@ -79,8 +94,12 @@ class DealController {
         res.json(deals)
     }
 
-    async getOne(req, res, next) {
+    async getById(req, res, next) {
+        const id = req.body.id
 
+        const deal = await Deal.findByPk(id)
+
+        res.send(deal)
     }
 }
 

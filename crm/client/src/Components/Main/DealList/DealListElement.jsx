@@ -1,12 +1,22 @@
+import { useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
 const DealListElement = (props) => {
 
+    const navigate = useNavigate()
 
+    const client = useSelector(state => state.clients.clients.find(client => client.id === props.deal.clientId))
+    const user = useSelector(state => state.users.users.find(user => user.id === props.deal.userId))
 
+    const onClickDeal = () => {
+        navigate(`/deal/${props.deal.id}`)
+    }
+
+    debugger
     return (
-        <tr>
+        <tr onClick={onClickDeal}>
             <td>
-                1000
+                {props.deal.id}
             </td>
             <td>
                 {props.deal.name}
@@ -15,16 +25,16 @@ const DealListElement = (props) => {
                 22
             </td>
             <td>
-                Марта
+                {client.name}
             </td>
             <td>
-                10000
+                {props.deal.budget}
             </td>
             <td>
-                Сидеренко
+                {user.full_name}
             </td>
             <td>
-                12.01.2003
+                {props.deal.creatingDate.slice(0,10)}
             </td>
         </tr>
     )

@@ -1,39 +1,44 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import classes from './DealList.module.css';
+import { changeSettings } from '../../../store/dealSlice';
+import { useEffect } from 'react';
 
 function DealListSettings() {
 
   const settings = useSelector(state => state.deals.settings)
+  const dispatch = useDispatch()
 
-  const onChangeName = () => {
-
+  const onChangeName = (e) => {
+    dispatch(changeSettings({name: e}))
   }
 
   return (
     <div className={classes.settings}>
       <div className={classes.settings_up}>
-        <input value={settings.name}/>
-        <input value={settings.client}/>
+        <input placeholder="Название" value={settings.name} onChange={(e) => {onChangeName(e.target.value)}}/>
+        <input placeholder="Клиент" value={settings.client}/>
         <select value={settings.status}>
-
+          <option value="" disabled selected hidden>
+            Статус сделки
+          </option>
         </select>
-        <select value={settings.dealType}>
+        <input type='date' value={settings.year}>
 
-        </select>
-        <select value={settings.year}>
+        </input>
+        <input type='date' value={settings.month}>
 
-        </select>
-        <select value={settings.month}>
-
+        </input>
+        <select>
+          <option value="" disabled selected hidden>
+            Менеджер
+          </option>
         </select>
       </div>
       <div className={classes.settings_up}>
-        <select>
-
-        </select>
-        <select>
-
-        </select>
+        <input type='number'>
+        </input>
+        <input type='number'>
+        </input>
         <select className={classes.invisible}>
 
         </select>

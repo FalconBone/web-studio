@@ -1,4 +1,5 @@
 const { Client } = require("../models/models");
+const applicationGenerate = require("./applicationGenerator");
 const clientContactGenerate = require("./clientContactGenerator");
 const clientEmailGenerate = require("./clientEmailGenerator");
 const clientFormGenerate = require("./clientFormGenerator");
@@ -13,23 +14,25 @@ const projectGenerator = require("./projectGenerator");
 const projectWorkerGenerate = require("./projectWorkerGenerator");
 const serviceGenerate = require("./serviceGenerator");
 const timeTypeGenerate = require("./timeTypeGenerator");
+const userGenerate = require("./userGenerator");
 const workerGenerator = require("./workerGenerator");
 const workerStatusGenerate = require("./workerStatusGenerator");
 
 
 let dataGenerator = {
     generateTestData: async function(amount){
+        await applicationGenerate(10)
         await clientGenerate(amount)
         //await clientContactGenerate(amount*3)
         //await clientPhoneGenerate(amount*5)
         //await clientEmailGenerate(amount*5)
+        await userGenerate()
         await clientFormGenerate(Math.floor(amount*1.5))
         await dealStatusGenerate()
         await timeTypeGenerate()
         await dealGenerate()
         await productGenerate(amount)
         await productDealGenerate()
-        await timeTypeGenerate()
         await positionGenerate()
         await serviceGenerate()
         await workerStatusGenerate()

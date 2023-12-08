@@ -1,3 +1,5 @@
+const { Client } = require("../models/models")
+
 class ClientController {
    async create(req, res) {
 
@@ -8,7 +10,9 @@ class ClientController {
    }
 
    async getAll(req, res) {
+      const clients = await Client.findAll()
 
+      res.send(clients)
    }
 }
 

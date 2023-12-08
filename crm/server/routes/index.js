@@ -6,7 +6,10 @@ const workerRouter = require('./workerRouter')
 const clientContactRouter = require('./clientContactRouter')
 const productRouter = require('./productRouter')
 const dealDocumentRouter = require('./dealDocumentRouter')
-
+const userRouter = require('./userRouter')
+const applicationRouter = require('./applicationRouter')
+const dealStatusRouter = require('./dealStatusRouter')
+const timeTypeRouter = require('./timeTypeRouter')
 
 router.use('/deal', dealRouter)
 router.use('/client', clientRouter)
@@ -14,5 +17,9 @@ router.use('/clientContact', clientContactRouter)
 router.use('/worker', workerRouter)
 router.use('/product', productRouter)
 router.use('/dealDocument', dealDocumentRouter)
+router.use('/user', userRouter)
+router.use('/application', applicationRouter)
+router.use('/dealStatus', dealStatusRouter)
+router.use('/timeType', timeTypeRouter)
 
 module.exports = router

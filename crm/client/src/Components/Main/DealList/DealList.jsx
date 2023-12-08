@@ -5,6 +5,8 @@ import DealListHeader from './DealListHeader';
 import DealListSettings from './DealListSettings';
 import { fetchDeals } from '../../../store/dealSlice';
 import { useDispatch } from 'react-redux';
+import { fetchUsers } from '../../../store/userSlice';
+import { fetchClients } from '../../../store/clientSlice';
 
 
 function DealList() {
@@ -12,7 +14,9 @@ function DealList() {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    dispatch(fetchClients())
     dispatch(fetchDeals())
+    dispatch(fetchUsers())
   }, [])
 
 

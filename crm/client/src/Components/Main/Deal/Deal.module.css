@@ -1,0 +1,46 @@
+.container {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.header {
+    height: 100px;
+    background-color: white;
+}
+
+.container_info {
+    border-bottom: 1px solid black;
+}
+
+.status {
+    padding: 10px;
+}
+
+.statuses {
+    display: flex;
+}
+
+.completed {
+    color: white;
+    background-color: #333333;
+}
+
+.uncompleted {
+    background-color: #ffffff;
+}
+
+.current {
+    color: white;
+    background-color: #FEB614;
+}
+
+.navigation {
+    display: flex;
+}
+
+.content {
+    padding: 20px;
+    height: 100%;
+    margin: 20px;
+    background-color: white;
+}

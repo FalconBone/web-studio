@@ -1,10 +1,11 @@
 const {fakerRU, faker} = require('@faker-js/faker/locale/ru');
-const { Client, ClientForm, Deal } = require('../models/models');
+const { Client, ClientForm, Deal, Worker, User } = require('../models/models');
 const random = require('./randomize');
 
 const dealGenerate = async () => {
     const count = await ClientForm.count()
-    
+    const countUser = await User.count()
+
     for (let i = 1; i <= count; i++) {
 
         const clientForm = await ClientForm.findByPk(i)
@@ -20,7 +21,8 @@ const dealGenerate = async () => {
             clientFormId: i,
             clientId: client.dataValues.id,
             timeTypeId: random.randomize(1,3),
-            dealStatusId: random.randomize(1,5)
+            dealStatusId: random.randomize(1,5),
+            userId: random.randomize(1, countUser)
         }
         await Deal.create(deal)
     }

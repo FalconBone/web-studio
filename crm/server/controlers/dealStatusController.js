@@ -1,10 +1,10 @@
+const { DealStatus } = require("../models/models")
+
 class dealStatusController {
-    async create(req, res) {
- 
-    }
- 
     async get(req, res) {
- 
+        const statuses = await DealStatus.findAll()
+
+        res.send(statuses)
     }
  }
  

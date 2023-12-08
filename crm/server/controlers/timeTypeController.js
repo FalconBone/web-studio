@@ -1,10 +1,10 @@
+const { TimeType } = require("../models/models")
+
 class timeTypeController {
-    async create(req, res) {
- 
-    }
- 
     async get(req, res) {
- 
+        const timeTypes = await TimeType.findAll()
+
+        res.send(timeTypes)
     }
  }
  

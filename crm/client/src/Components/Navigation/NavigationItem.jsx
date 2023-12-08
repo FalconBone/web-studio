@@ -1,15 +1,18 @@
+import { NavLink } from 'react-router-dom';
 import classes from './NavigationItem.module.css';
 
-function NavigationItem() {
+function NavigationItem(props) {
   return (
-    <div className={classes.container}>
+    <NavLink to={`/${props.url}`}>
+      <div className={classes.container}>
         <div className={classes.image}>
-            
+
         </div>
         <div className={classes.text}>
-            Задачи
+          {props.title}
         </div>
-    </div>
+      </div>
+    </NavLink>
   );
 }
 
