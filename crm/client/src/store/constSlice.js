@@ -9,7 +9,6 @@ export const fetchDealStatuses = createAsyncThunk(
 
         await axios.get('http://localhost:5000/api/dealStatus/get')
             .then((res) => {
-                console.log('\n', res);
                 statuses = res.data;
             })
         return statuses

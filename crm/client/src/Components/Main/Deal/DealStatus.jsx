@@ -8,8 +8,6 @@ const DealStatus = (props) => {
     const dispatch = useDispatch()
     const statuses = useSelector(state => state.consts.dealStatuses)
 
-    console.log(props.status);
-    console.log(statuses);
     let wasCurrent = false
 
     useEffect(() => {
@@ -30,9 +28,12 @@ const DealStatus = (props) => {
     })
 
     return (
-        <div className={classes.statuses}>
+        <div className={classes.statuses_container}>
+             <div className={classes.statuses}>
             {statusesLine}
         </div>
+        </div>
+       
     )
 }
 

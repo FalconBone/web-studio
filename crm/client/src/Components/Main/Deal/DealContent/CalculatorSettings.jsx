@@ -21,7 +21,6 @@ const CalculatorSettings = (props) => {
         dispatch(changeDeal({timeTypeId: value}))
     }
 
-    console.log(timeTypes);
     return (
         <div className={classes.settings}>
             <div style={{marginBottom: '10px'}}>

@@ -29,10 +29,13 @@ const DealNavigation = () => {
     const navsBlock = navs.map((nav, index) => {
 
         return (
-            <NavLink to={nav.url} id={index}>
-                <div>
+            <NavLink to={nav.url} id={index} className={({isActive}) => isActive ? classes.nav_item + " " +  classes.nav_item_active : classes.nav_item}>
+                <div >
                     <div>
                         {nav.name}
+                    </div>
+                    <div>
+
                     </div>
                 </div>
             </NavLink>
@@ -40,12 +43,15 @@ const DealNavigation = () => {
     })
 
     return (
-        <div className={classes.navigation}>
-            <div>
+        <div className={classes.nav_container}>
+            <div className={classes.navigation}>
+            <div  style={{marginRight: '20px'}}>
                 В сделке: 
             </div>
             {navsBlock}
         </div>
+        </div>
+        
     )
 }
 

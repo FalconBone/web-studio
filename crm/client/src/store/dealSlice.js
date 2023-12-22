@@ -47,14 +47,51 @@ export const fetchDealById = createAsyncThunk(
     }
 )
 
+export const updateDealById = createAsyncThunk(
+    'deal/updateDealById',
+    async function(id, {getState}) {
+        let deal;
+        let deals
+
+        console.log( getState().deals.deal);
+        await axios.post('http://localhost:5000/api/deal/update', {id: id, deal: getState().deals.deal})
+            .then((res) => {
+                deal = res.data
+            })
+            await axios.post('http://localhost:5000/api/deal/get', {settings: getState().deals.settings})
+            .then((res) => {
+                console.log(res);
+                deals = res.data;
+            })
+
+        return {deal: deal, deals: deals}
+    }
+)
+
+export const deleteDealById = createAsyncThunk(
+    'deal/deleteDealById',
+    async function(id) {
+        let deal = {}
+
+
+        await axios.post('http://localhost:5000/api/deal/delete', {id: id})
+            .then((res) => {
+                console.log(res.data);
+            })
+
+        return deal
+    }
+)
+
+
 const dealsSlice = createSlice({
     name: 'deals',
     initialState: {
         //name, client, statuses, dealType, years, months, managers
         settings: {
             name: '',
-            client: '',
-            status: '',
+            clientName: '',
+            statuses: '',
             dealType: '',
             year: null,
             month: null,
@@ -93,7 +130,14 @@ const dealsSlice = createSlice({
         },
         [fetchDealById.fulfilled]: (state, action) => {
             state.deal = action.payload
-        }
+        },
+        [updateDealById.fulfilled] : (state, action) => {
+            state.deal = action.payload.deal
+            state.deals = action.payload.deals
+        },
+        [deleteDealById.fulfilled] : (state, action) => {
+            state.deal = action.payload
+        },
     }
 })
 

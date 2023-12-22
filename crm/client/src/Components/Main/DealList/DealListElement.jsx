@@ -12,7 +12,6 @@ const DealListElement = (props) => {
         navigate(`/deal/${props.deal.id}`)
     }
 
-    debugger
     return (
         <tr onClick={onClickDeal}>
             <td>
@@ -25,13 +24,13 @@ const DealListElement = (props) => {
                 22
             </td>
             <td>
-                {client.name}
+                {client?.name}
             </td>
             <td>
                 {props.deal.budget}
             </td>
             <td>
-                {user.full_name}
+                {user?.full_name}
             </td>
             <td>
                 {props.deal.creatingDate.slice(0,10)}

@@ -7,12 +7,9 @@ function Navigation() {
       <div className={classes.profile_button}>
 
       </div>
-      <div>
+      <div className={classes.nav_items}>
         <NavigationItem url={'applications'} title={'Анкеты'}/>
         <NavigationItem url={'deals'} title={'Сделки'}/>
-        <NavigationItem title={'Клиенты'}/>
-        <NavigationItem title={'Счета'}/>
-        <NavigationItem title={'Отчеты'}/>
       </div>
     </nav>
   );

@@ -8,7 +8,6 @@ export const fetchClients = createAsyncThunk(
 
         await axios.get('http://localhost:5000/api/client/getAll')
             .then((res) => {
-                console.log(res);
                 clients = res.data;
             })
         return clients

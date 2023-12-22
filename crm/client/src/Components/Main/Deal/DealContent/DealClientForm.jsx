@@ -1,10 +1,15 @@
 import classes from './Calculator.module.css'
 
-const DealClientForm = () => {
+const DealClientForm = (props) => {
 
     return (
         <div>
-            Анкета
+            <div>
+                Анкета
+            </div>
+            <div>
+                
+            </div>
         </div>
     )
 }

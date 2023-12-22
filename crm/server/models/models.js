@@ -1,5 +1,5 @@
 const sequelize = require('../db')
-const {DataTypes} = require('sequelize')
+const {DataTypes, QueryInterface} = require('sequelize')
 
 //-----------------------------SALE BLOCK--------------------------------//
 
@@ -11,16 +11,22 @@ const Deal = sequelize.define('deal', {
     term: {type: DataTypes.INTEGER, allowNull: true},
     budget: {type: DataTypes.INTEGER, allowNull: true},
 }
-// ,{
-//     indexes: [
-//         {
-//             fields: ['name']
-//         },
-//         {
-//             fields: ['creatingDate']
-//         }
-//     ]
-// }
+,{
+    indexes: [
+        {
+            fields: ['name']
+        },
+        {
+            fields: ['creatingDate']
+        },
+        {
+            fields: ['term']
+        },
+        {
+            fields: ['budget']
+        }
+    ]
+}
 )
 
 //Клиент - организация
@@ -28,13 +34,13 @@ const Client = sequelize.define('client', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING(100), allowNull: false}
 }
-// ,{
-//     indexes: [
-//         {
-//             fields: ['name']
-//         },
-//     ]
-// }
+,{
+    indexes: [
+        {
+            fields: ['name']
+        },
+    ]
+}
 )
 
 //Форма клиента - бриф на заказ сайта
@@ -226,8 +232,7 @@ Worker.belongsTo(Position)
 
 User.hasMany(Deal)
 Deal.belongsTo(User)
-// CrmRole.hasMany(Worker)
-// Worker.belongsTo(CrmRole)
+
 
 WorkerStatus.hasMany(Worker)
 Worker.belongsTo(WorkerStatus)
@@ -237,6 +242,11 @@ Project.belongsToMany(Worker, {through: ProjectWorker})
 
 Deal.hasOne(Project)
 Project.belongsTo(Deal)
+
+
+// const queryInterface = sequelize.getQueryInterface()
+
+// queryInterface.addIndex('deals', ['dealStatusId'])
 
 
 module.exports = {

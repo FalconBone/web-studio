@@ -10,6 +10,14 @@ class productController {
         const products = await Product.findAll()
         return res.json(products)
     }
+
+    async getById(req, res) {
+        const id = req.body.id
+
+        const product = await Product.findByPk(id)
+
+        res.send(product)
+    }
  }
  
  module.exports = new productController() 

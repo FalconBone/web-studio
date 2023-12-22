@@ -8,13 +8,13 @@ export const fetchApplications = createAsyncThunk(
 
         await axios.get('http://localhost:5000/api/application/getApplications')
             .then((res) => {
-                console.log(res);
                 applications = res.data;
             })
 
         return applications
     }
 )
+
 
 const applicationSlice = createSlice({
     name: 'applications',

@@ -7,6 +7,7 @@ function DealListContent() {
 
     const deals = useSelector(state => state.deals.deals)
 
+    console.log(deals);
     return (
         <div className={classes.content}>
             <table>

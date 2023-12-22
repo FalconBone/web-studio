@@ -4,6 +4,8 @@ import clientSlice from './clientSlice'
 import userSlice from './userSlice'
 import applicationSlice from './applicationSlice'
 import constSlice from './constSlice'
+import productSlice from './productSlice'
+import positionSlice from './positionSlice'
 
 export default configureStore({
     reducer: {
@@ -11,6 +13,8 @@ export default configureStore({
         clients: clientSlice,
         users: userSlice,
         applications: applicationSlice,
-        consts: constSlice
+        consts: constSlice,
+        products: productSlice,
+        positions: positionSlice
     }
 })

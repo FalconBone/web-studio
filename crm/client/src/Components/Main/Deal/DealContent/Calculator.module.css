@@ -2,6 +2,41 @@
 
 }
 
+.service {
+    border: 1px solid rgba(0, 0, 0, 0.068);
+    padding: 20px;
+}
+
+.service table{
+    width: 100%;
+    table-layout: fixed;
+    text-align: left;
+    padding: 14px;
+}
+
+.tr_head {
+    border-bottom: 1px solid #F8BA32;
+}
+
+.tr_head th{
+    padding-bottom: 18px;
+}
+
+
+.service tr {
+    line-height: 50px;
+}
+
+.service td {
+    padding: 10px;
+    padding-left: 0;
+    border-bottom: 1px solid rgba(62, 62, 62, 0.153);
+    overflow: hidden;
+    padding-right: 10px;
+}
+
+
+
 .header {
     font-size: 34px;
     padding-bottom: 18px;
